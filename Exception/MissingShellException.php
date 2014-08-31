@@ -7,18 +7,20 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://book.cakephp.org/3.0/en/development/errors.html#error-exception-configuration
+ * @link          http://book.cakephp.org/2.0/en/development/testing.html
  * @since         3.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Cake\Console\Error;
+namespace Cake\Console\Exception;
 
 use Cake\Core\Exception\Exception;
 
 /**
- * Exception class for Console libraries.  This exception will be thrown from Console library
- * classes when they encounter an error.
+ * Used when a shell cannot be found.
  *
  */
-class ConsoleException extends Exception {
+class MissingShellException extends Exception {
+
+	protected $_messageTemplate = 'Shell class for "%s" could not be found.';
+
 }

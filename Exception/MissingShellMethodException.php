@@ -11,16 +11,16 @@
  * @since         3.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Cake\Console\Error;
+namespace Cake\Console\Exception;
 
 use Cake\Core\Exception\Exception;
 
 /**
- * Used when a shell cannot be found.
+ * Used when a shell method cannot be found.
  *
  */
-class MissingShellException extends Exception {
+class MissingShellMethodException extends Exception {
 
-	protected $_messageTemplate = 'Shell class for "%s" could not be found.';
+	protected $_messageTemplate = "Unknown command %1\$s %2\$s.\nFor usage try `cake %1\$s --help`";
 
 }
