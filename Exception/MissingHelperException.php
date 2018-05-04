@@ -7,8 +7,7 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://book.cakephp.org/3.0/en/development/errors.html#error-exception-configuration
- * @since         3.0.0
+ * @since         3.1.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace Cake\Console\Exception;
@@ -16,9 +15,10 @@ namespace Cake\Console\Exception;
 use Cake\Core\Exception\Exception;
 
 /**
- * Exception class for Console libraries. This exception will be thrown from Console library
- * classes when they encounter an error.
+ * Used when a Helper cannot be found.
  */
-class ConsoleException extends Exception
+class MissingHelperException extends Exception
 {
+
+    protected $_messageTemplate = 'Helper class %s could not be found.';
 }
