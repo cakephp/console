@@ -7,6 +7,14 @@ This library provides a framework for building command line applications from a
 set of commands. It provides abstractions for defining option and argument
 parsers, and dispatching commands.
 
+# installation
+
+You can install it from Composer. In your project:
+
+```
+composer require "Cake/Console"
+```
+
 # Getting Started
 
 To start, define an an entry point script and Application class that defines
@@ -35,6 +43,7 @@ namespace App;
 
 use App\Command\HelloCommand;
 use Cake\Core\ConsoleApplicationInterface;
+use Cake\Console\CommandCollection;
 
 class Application implements ConsoleApplicationInterface
 {
