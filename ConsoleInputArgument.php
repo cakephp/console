@@ -68,7 +68,7 @@ class ConsoleInputArgument
      * @param array<string, mixed>|string $name The long name of the option, or an array with all the properties.
      * @param string $help The help text for this option
      * @param bool $required Whether this argument is required. Missing required args will trigger exceptions
-     * @param list<string> $choices Valid choices for this option.
+     * @param array<string> $choices Valid choices for this option.
      * @param string|null $default The default value for this argument.
      */
     public function __construct(
