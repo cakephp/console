@@ -43,7 +43,7 @@ class StubConsoleInput extends ConsoleInput
     /**
      * Constructor
      *
-     * @param list<string> $replies A list of replies for read()
+     * @param array<string> $replies A list of replies for read()
      */
     public function __construct(array $replies)
     {

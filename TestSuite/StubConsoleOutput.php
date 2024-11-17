@@ -56,7 +56,7 @@ class StubConsoleOutput extends ConsoleOutput
     /**
      * Write output to the buffer.
      *
-     * @param list<string>|string $message A string or an array of strings to output
+     * @param array<string>|string $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
      * @return int
      */
