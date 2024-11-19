@@ -242,7 +242,7 @@ class CommandCollection implements IteratorAggregate, Countable
     /**
      * Get the list of available command names.
      *
-     * @return list<string> Command names
+     * @return array<string> Command names
      */
     public function keys(): array
     {

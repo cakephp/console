@@ -35,22 +35,22 @@ class Arguments
     /**
      * Positional arguments.
      *
-     * @var array<int, list<string>|string>
+     * @var array<int, array<string>|string>
      */
     protected array $args;
 
     /**
      * Named options
      *
-     * @var array<string, list<string>|string|bool|null>
+     * @var array<string, array<string>|string|bool|null>
      */
     protected array $options;
 
     /**
      * Constructor
      *
-     * @param array<int, list<string>|string> $args Positional arguments
-     * @param array<string, list<string>|string|bool|null> $options Named arguments
+     * @param array<int, array<string>|string> $args Positional arguments
+     * @param array<string, array<string>|string|bool|null> $options Named arguments
      * @param array<int, string> $argNames List of argument names. Order is expected to be
      *  the same as $args.
      */
@@ -64,7 +64,7 @@ class Arguments
     /**
      * Get all positional arguments.
      *
-     * @return array<int, list<string>|string>
+     * @return array<int, array<string>|string>
      */
     public function getArguments(): array
     {
@@ -173,7 +173,7 @@ class Arguments
      * Gets a multiple (array) argument's value or null if not set.
      *
      * @param string $name Argument name.
-     * @return list<string>|null
+     * @return array<string>|null
      */
     public function getArrayArgument(string $name): ?array
     {
@@ -195,7 +195,7 @@ class Arguments
     /**
      * Get an array of all the options
      *
-     * @return array<string, list<string>|string|bool|null>
+     * @return array<string, array<string>|string|bool|null>
      */
     public function getOptions(): array
     {
@@ -245,7 +245,7 @@ class Arguments
     /**
      * Gets a multiple option's value or null if not set.
      *
-     * @return list<string>|null
+     * @return array<string>|null
      * @deprecated 5.2.0 Use getArrayOption instead.
      */
     public function getMultipleOption(string $name): ?array
@@ -261,7 +261,7 @@ class Arguments
     /**
      * Gets a multiple (array) option's value or null if not set.
      *
-     * @return list<string>|null
+     * @return array<string>|null
      */
     public function getArrayOption(string $name): ?array
     {
