@@ -348,9 +348,7 @@ class CommandRunner implements EventDispatcherInterface
             }
 
             $this->factory = new CommandFactory($container);
-            if ($container !== null) {
-                $container->add(CommandFactoryInterface::class, $this->factory);
-            }
+            $container?->add(CommandFactoryInterface::class, $this->factory);
         }
 
         return $this->factory->create($className);
