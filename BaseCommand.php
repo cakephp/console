@@ -52,7 +52,7 @@ abstract class BaseCommand implements CommandInterface, EventDispatcherInterface
     /**
      * Constructor
      *
-     * @param \Cake\Console\CommandFactoryInterface $factory Command factory instance.
+     * @param \Cake\Console\CommandFactoryInterface|null $factory Command factory instance.
      */
     public function __construct(?CommandFactoryInterface $factory = null)
     {
