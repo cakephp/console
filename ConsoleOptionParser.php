@@ -286,7 +286,7 @@ class ConsoleOptionParser
     /**
      * Sets the description text for shell/task.
      *
-     * @param list<string>|string $text The text to set. If an array the
+     * @param array<string>|string $text The text to set. If an array the
      *   text will be imploded with "\n".
      * @return $this
      */
@@ -314,7 +314,7 @@ class ConsoleOptionParser
      * Sets an epilog to the parser. The epilog is added to the end of
      * the options and arguments listing when help is generated.
      *
-     * @param list<string>|string $text The text to set. If an array the text will
+     * @param array<string>|string $text The text to set. If an array the text will
      *   be imploded with "\n".
      * @return $this
      */
@@ -523,7 +523,7 @@ class ConsoleOptionParser
     /**
      * Get the list of argument names.
      *
-     * @return list<string>
+     * @return array<string>
      */
     public function argumentNames(): array
     {
@@ -796,7 +796,7 @@ class ConsoleOptionParser
      *
      * @param string $argument The argument to append
      * @param array $args The array of parsed args to append to.
-     * @return list<string> Args
+     * @return array<string> Args
      * @throws \Cake\Console\Exception\ConsoleException
      */
     protected function _parseArg(string $argument, array $args): array
