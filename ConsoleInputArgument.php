@@ -236,7 +236,7 @@ class ConsoleInputArgument
                     $value,
                     $this->_name,
                     implode('|', $this->_choices)
-                )
+                ),
             );
         }
 
