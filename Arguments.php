@@ -164,6 +164,7 @@ class Arguments
     /**
      * Get a boolean option's value or null if not set.
      *
+     * @param string $name Name
      * @return bool|null
      */
     public function getBooleanOption(string $name): ?bool
