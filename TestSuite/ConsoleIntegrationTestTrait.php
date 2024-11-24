@@ -90,7 +90,7 @@ trait ConsoleIntegrationTestTrait
             $this->_in = new StubConsoleInput($input);
         } elseif ($input) {
             throw new InvalidArgumentException(
-                'You can use `$input` only if `$_in` property is null and will be reset.'
+                'You can use `$input` only if `$_in` property is null and will be reset.',
             );
         }
         $this->_out->clear();
@@ -301,7 +301,7 @@ trait ConsoleIntegrationTestTrait
      * Creates an $argv array from a command string
      *
      * @param string $command Command string
-     * @return list<string>
+     * @return array<string>
      */
     protected function commandStringToArgs(string $command): array
     {
