@@ -88,7 +88,7 @@ class Arguments
         if ($value !== null && !is_string($value)) {
             throw new ConsoleException(sprintf(
                 'Argument at index `%d` is not of type `string`, use `getArrayArgument()` instead.',
-                $index
+                $index,
             ));
         }
 
@@ -112,7 +112,7 @@ class Arguments
         if ($value !== null && !is_array($value)) {
             throw new ConsoleException(sprintf(
                 'Argument at index `%d` is not of type `array`, use `getArgument()` instead.',
-                $index
+                $index,
             ));
         }
 
@@ -162,7 +162,7 @@ class Arguments
         if ($value !== null && !is_string($value)) {
             throw new ConsoleException(sprintf(
                 'Argument `%s` is not of type `string`, use `getArrayArgument()` instead.',
-                $name
+                $name,
             ));
         }
 
@@ -185,7 +185,7 @@ class Arguments
         if ($value !== null && !is_array($value)) {
             throw new ConsoleException(sprintf(
                 'Argument `%s` is not of type `array`, use `getArgument()` instead.',
-                $name
+                $name,
             ));
         }
 
@@ -252,7 +252,7 @@ class Arguments
     {
         deprecationWarning(
             '5.2.0',
-            'getMultipleOption() is deprecated. Use `getArrayOption()` instead.'
+            'getMultipleOption() is deprecated. Use `getArrayOption()` instead.',
         );
 
         return $this->getArrayOption($name);
