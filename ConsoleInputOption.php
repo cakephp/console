@@ -121,7 +121,7 @@ class ConsoleInputOption
         bool $multiple = false,
         bool $required = false,
         ?string $prompt = null,
-        ?string $separator = null
+        ?string $separator = null,
     ) {
         $this->_name = $name;
         $this->_short = $short;
@@ -155,8 +155,8 @@ class ConsoleInputOption
             throw new ConsoleException(
                 sprintf(
                     'The option separator must not contain spaces for `%s`.',
-                    $this->_name
-                )
+                    $this->_name,
+                ),
             );
         }
     }
@@ -307,7 +307,7 @@ class ConsoleInputOption
                     '`%s` is not a valid value for `--%s`. Please use one of `%s`',
                     $value,
                     $this->_name,
-                    implode('|', $this->_choices)
+                    implode('|', $this->_choices),
                 ),
             );
         }
