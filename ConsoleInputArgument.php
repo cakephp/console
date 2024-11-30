@@ -84,7 +84,7 @@ class ConsoleInputArgument
         bool $required = false,
         array $choices = [],
         ?string $default = null,
-        ?string $separator = null
+        ?string $separator = null,
     ) {
         if (is_array($name) && isset($name['name'])) {
             foreach ($name as $key => $value) {
@@ -104,8 +104,8 @@ class ConsoleInputArgument
             throw new ConsoleException(
                 sprintf(
                     'The argument separator must not contain spaces for `%s`.',
-                    $this->_name
-                )
+                    $this->_name,
+                ),
             );
         }
     }
@@ -235,7 +235,7 @@ class ConsoleInputArgument
                     '`%s` is not a valid value for `%s`. Please use one of `%s`',
                     $value,
                     $this->_name,
-                    implode('|', $this->_choices)
+                    implode('|', $this->_choices),
                 ),
             );
         }
