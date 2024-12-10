@@ -23,11 +23,11 @@
         "source": "https://github.com/cakephp/console"
     },
     "require": {
-        "php": ">=8.1",
-        "cakephp/core": "^5.1",
-        "cakephp/event": "^5.1",
-        "cakephp/log": "^5.1",
-        "cakephp/utility": "^5.1"
+        "php": ">=8.4",
+        "cakephp/core": "6.x-dev",
+        "cakephp/event": "6.x-dev",
+        "cakephp/log": "6.x-dev",
+        "cakephp/utility": "6.x-dev"
     },
     "suggest": {
         "cakephp/datasource": "To use the Command base classes",
@@ -37,5 +37,7 @@
         "psr-4": {
             "Cake\\Console\\": "."
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
