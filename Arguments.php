@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Cake\Console;
 
 use Cake\Console\Exception\ConsoleException;
-use function Cake\Core\deprecationWarning;
 
 /**
  * Provides an interface for interacting with
@@ -240,22 +239,6 @@ class Arguments
         }
 
         return $value;
-    }
-
-    /**
-     * Gets a multiple option's value or null if not set.
-     *
-     * @return array<string>|null
-     * @deprecated 5.2.0 Use getArrayOption instead.
-     */
-    public function getMultipleOption(string $name): ?array
-    {
-        deprecationWarning(
-            '5.2.0',
-            'getMultipleOption() is deprecated. Use `getArrayOption()` instead.',
-        );
-
-        return $this->getArrayOption($name);
     }
 
     /**
