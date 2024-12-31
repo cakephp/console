@@ -51,10 +51,3 @@ class ContentsContain extends ContentsBase
         return sprintf("actual result:\n%s", $this->contents);
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\Constraint\ContentsContain',
-    'Cake\TestSuite\Constraint\Console\ContentsContain'
-);
-// phpcs:enable

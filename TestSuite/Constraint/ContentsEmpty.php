@@ -62,10 +62,3 @@ class ContentsEmpty extends ContentsBase
         return sprintf("actual result:\n%s", $this->contents);
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\Constraint\ContentsEmpty',
-    'Cake\TestSuite\Constraint\Console\ContentsEmpty'
-);
-// phpcs:enable

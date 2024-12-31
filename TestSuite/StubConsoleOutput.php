@@ -105,10 +105,3 @@ class StubConsoleOutput extends ConsoleOutput
         return implode("\n", $this->_out);
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\StubConsoleOutput',
-    'Cake\TestSuite\Stub\ConsoleOutput'
-);
-// phpcs:enable
