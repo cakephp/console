@@ -33,10 +33,3 @@ class MissingConsoleInputException extends RuntimeException
         $this->message .= "\nThe question asked was: " . $question;
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\MissingConsoleInputException',
-    'Cake\TestSuite\Stub\MissingConsoleInputException'
-);
-// phpcs:enable

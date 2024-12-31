@@ -60,10 +60,3 @@ class ContentsRegExp extends ContentsBase
         return sprintf("actual result:\n%s", $this->contents);
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\Constraint\ContentsRegExp',
-    'Cake\TestSuite\Constraint\Console\ContentsRegExp'
-);
-// phpcs:enable

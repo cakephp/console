@@ -97,10 +97,3 @@ class ExitCode extends Constraint
         );
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\Constraint\ExitCode',
-    'Cake\TestSuite\Constraint\Console\ExitCode'
-);
-// phpcs:enable

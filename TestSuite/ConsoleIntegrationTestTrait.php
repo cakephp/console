@@ -365,10 +365,3 @@ trait ConsoleIntegrationTestTrait
         return $argv;
     }
 }
-
-// phpcs:disable
-class_alias(
-    'Cake\Console\TestSuite\ConsoleIntegrationTestTrait',
-    'Cake\TestSuite\ConsoleIntegrationTestTrait'
-);
-// phpcs:enable
