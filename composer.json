@@ -24,9 +24,9 @@
     },
     "require": {
         "php": ">=8.1",
-        "cakephp/core": "^5.2",
-        "cakephp/event": "^5.2",
-        "cakephp/log": "^5.2",
+        "cakephp/core": "5.2.*@dev",
+        "cakephp/event": "5.2.*@dev",
+        "cakephp/log": "5.2.*@dev",
         "cakephp/utility": "^5.2"
     },
     "suggest": {
@@ -38,6 +38,10 @@
             "Cake\\Console\\": "."
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-5.next": "5.2.x-dev"
+        }
+    }
 }
