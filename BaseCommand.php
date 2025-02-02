@@ -62,7 +62,7 @@ abstract class BaseCommand implements CommandInterface, EventDispatcherInterface
     /**
      * @inheritDoc
      */
-    public function setName(string $name)
+    public function setName(string $name): static
     {
         assert(
             str_contains($name, ' ') && !str_starts_with($name, ' '),

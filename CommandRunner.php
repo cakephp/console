@@ -109,7 +109,7 @@ class CommandRunner implements EventDispatcherInterface
      * @param array<string, string> $aliases The map of aliases to replace.
      * @return $this
      */
-    public function setAliases(array $aliases)
+    public function setAliases(array $aliases): static
     {
         $this->aliases = $aliases;
 
@@ -213,7 +213,7 @@ class CommandRunner implements EventDispatcherInterface
      * @param \Cake\Event\EventManagerInterface $eventManager The event manager to set.
      * @return $this
      */
-    public function setEventManager(EventManagerInterface $eventManager)
+    public function setEventManager(EventManagerInterface $eventManager): static
     {
         if ($this->app instanceof EventDispatcherInterface) {
             $this->app->setEventManager($eventManager);
