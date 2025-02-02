@@ -46,7 +46,7 @@ interface CommandInterface
      * @param string $name The name the command uses in the collection.
      * @return $this
      */
-    public function setName(string $name);
+    public function setName(string $name): static;
 
     /**
      * Run the command.
