@@ -27,7 +27,7 @@
         "cakephp/core": "5.2.*@dev",
         "cakephp/event": "5.2.*@dev",
         "cakephp/log": "5.2.*@dev",
-        "cakephp/utility": "^5.2"
+        "cakephp/utility": "5.2.*@dev"
     },
     "suggest": {
         "cakephp/datasource": "To use the Command base classes",
