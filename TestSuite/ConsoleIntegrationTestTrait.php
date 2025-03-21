@@ -139,7 +139,7 @@ trait ConsoleIntegrationTestTrait
         $this->assertThat(
             $expected,
             new ExitCode($this->_exitCode, $this->_out->messages(), $this->_err->messages()),
-            $message
+            $message,
         );
     }
 
@@ -154,7 +154,7 @@ trait ConsoleIntegrationTestTrait
         $this->assertThat(
             CommandInterface::CODE_SUCCESS,
             new ExitCode($this->_exitCode, $this->_out->messages(), $this->_err->messages()),
-            $message
+            $message,
         );
     }
 
@@ -169,7 +169,7 @@ trait ConsoleIntegrationTestTrait
         $this->assertThat(
             CommandInterface::CODE_ERROR,
             new ExitCode($this->_exitCode, $this->_out->messages(), $this->_err->messages()),
-            $message
+            $message,
         );
     }
 
