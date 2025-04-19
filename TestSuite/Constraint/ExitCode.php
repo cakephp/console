@@ -27,7 +27,7 @@ class ExitCode extends Constraint
     /**
      * @var int|null
      */
-    private ?int $exitCode = null;
+    private ?int $exitCode;
 
     /**
      * @var array $out
