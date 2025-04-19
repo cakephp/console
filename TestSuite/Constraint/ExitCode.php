@@ -27,17 +27,17 @@ class ExitCode extends Constraint
     /**
      * @var int|null
      */
-    private ?int $exitCode;
+    private ?int $exitCode = null;
 
     /**
-     * @var array $out
+     * @var array
      */
-    private array $out;
+    private array $out = [];
 
     /**
-     * @var array $err
+     * @var array
      */
-    private array $err;
+    private array $err = [];
 
     /**
      * Constructor
