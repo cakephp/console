@@ -387,7 +387,13 @@ class ConsoleOptionParser
                 'required' => false,
                 'prompt' => null,
             ];
+
             $options += $defaults;
+
+            if ($options['default'] && (is_int($options['default']) || is_float($options['default']))) {
+                $options['default'] = (string)$options['default'];
+            }
+
             $option = new ConsoleInputOption(
                 $name,
                 $options['short'],
