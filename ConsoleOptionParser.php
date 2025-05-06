@@ -249,6 +249,13 @@ class ConsoleOptionParser
             $this->addArguments($spec['arguments']);
         }
         if (!empty($spec['options'])) {
+            foreach ($spec['options'] as $name => $params) {
+                if ($params instanceof ConsoleInputOption) {
+                    $name = $params->name();
+                }
+                $this->removeOption($name);
+            }
+
             $this->addOptions($spec['options']);
         }
         if (!empty($spec['description'])) {
@@ -380,7 +387,13 @@ class ConsoleOptionParser
                 'required' => false,
                 'prompt' => null,
             ];
+
             $options += $defaults;
+
+            if ($options['default'] && (is_int($options['default']) || is_float($options['default']))) {
+                $options['default'] = (string)$options['default'];
+            }
+
             $option = new ConsoleInputOption(
                 $name,
                 $options['short'],
@@ -417,6 +430,11 @@ class ConsoleOptionParser
     public function removeOption(string $name): static
     {
         unset($this->_options[$name]);
+
+        $key = array_search($name, $this->_shortOptions, true);
+        if ($key !== false) {
+            unset($this->_shortOptions[$key]);
+        }
 
         return $this;
     }
