@@ -193,7 +193,7 @@ class ConsoleIo implements ConsoleIoInterface
      * @param int $level The message's output level, see above.
      * @return int|null The number of bytes returned from writing to stdout
      *   or null if provided $level is greater than current level.
-     * @see https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
+     * @link https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
      */
     public function info(array|string $message, int $newlines = 1, int $level = self::NORMAL): ?int
     {
@@ -211,7 +211,7 @@ class ConsoleIo implements ConsoleIoInterface
      * @param int $level The message's output level, see above.
      * @return int|null The number of bytes returned from writing to stdout
      *   or null if provided $level is greater than current level.
-     * @see https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
+     * @link https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
      */
     public function comment(array|string $message, int $newlines = 1, int $level = self::NORMAL): ?int
     {
@@ -227,7 +227,7 @@ class ConsoleIo implements ConsoleIoInterface
      * @param array<string>|string $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
      * @return int The number of bytes returned from writing to stderr.
-     * @see https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::err
+     * @link https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::err
      */
     public function warning(array|string $message, int $newlines = 1): int
     {
@@ -243,7 +243,7 @@ class ConsoleIo implements ConsoleIoInterface
      * @param array<string>|string $message A string or an array of strings to output
      * @param int $newlines Number of newlines to append
      * @return int The number of bytes returned from writing to stderr.
-     * @see https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::err
+     * @link https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::err
      */
     public function error(array|string $message, int $newlines = 1): int
     {
@@ -261,7 +261,7 @@ class ConsoleIo implements ConsoleIoInterface
      * @param int $level The message's output level, see above.
      * @return int|null The number of bytes returned from writing to stdout
      *   or null if provided $level is greater than current level.
-     * @see https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
+     * @link https://book.cakephp.org/5/en/console-and-shells.html#\Cake\Console\ConsoleIoInterface::out
      */
     public function success(array|string $message, int $newlines = 1, int $level = self::NORMAL): ?int
     {
