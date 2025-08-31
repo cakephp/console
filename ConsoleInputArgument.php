@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Cake\Console;
 
 use Cake\Console\Exception\ConsoleException;
-use Cake\Core\Exception\CakeException;
 use SimpleXMLElement;
 
 /**
@@ -73,36 +72,28 @@ class ConsoleInputArgument
     /**
      * Make a new Input Argument
      *
-     * @param array<string, mixed>|string $name The long name of the option, or an array with all the properties.
-     * @param string $help The help text for this option
+     * @param string $name The long name of the option.
+     * @param string $help The help text for this option.
      * @param bool $required Whether this argument is required. Missing required args will trigger exceptions
      * @param array<string> $choices Valid choices for this option.
      * @param string|null $default The default value for this argument.
+     * @param string|null $separator The separator to use when using multiple values.
+     * @throws \Cake\Console\Exception\ConsoleException When the separator contains spaces.
      */
     public function __construct(
-        array|string $name,
+        string $name,
         string $help = '',
         bool $required = false,
         array $choices = [],
         ?string $default = null,
         ?string $separator = null,
     ) {
-        if (is_array($name)) {
-            if (!isset($name['name'])) {
-                throw new CakeException('You must provide a `name` for the argument.');
-            }
-
-            foreach ($name as $key => $value) {
-                $this->{'_' . $key} = $value;
-            }
-        } else {
-            $this->_name = $name;
-            $this->_help = $help;
-            $this->_required = $required;
-            $this->_choices = $choices;
-            $this->_default = $default;
-            $this->_separator = $separator;
-        }
+        $this->_name = $name;
+        $this->_help = $help;
+        $this->_required = $required;
+        $this->_choices = $choices;
+        $this->_default = $default;
+        $this->_separator = $separator;
 
         if ($this->_separator !== null && str_contains($this->_separator, ' ')) {
             throw new ConsoleException(
