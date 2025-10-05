@@ -32,42 +32,42 @@ class ConsoleInputArgument
      *
      * @var string
      */
-    protected string $_name;
+    protected string $name;
 
     /**
      * Help string
      *
      * @var string
      */
-    protected string $_help;
+    protected string $help;
 
     /**
      * Is this option required?
      *
      * @var bool
      */
-    protected bool $_required;
+    protected bool $required;
 
     /**
      * An array of valid choices for this argument.
      *
      * @var array<string>
      */
-    protected array $_choices;
+    protected array $choices;
 
     /**
      * Default value for this argument.
      *
      * @var string|null
      */
-    protected ?string $_default = null;
+    protected ?string $default = null;
 
     /**
      * The multiple separator.
      *
      * @var string|null
      */
-    protected ?string $_separator = null;
+    protected ?string $separator = null;
 
     /**
      * Make a new Input Argument
@@ -88,18 +88,18 @@ class ConsoleInputArgument
         ?string $default = null,
         ?string $separator = null,
     ) {
-        $this->_name = $name;
-        $this->_help = $help;
-        $this->_required = $required;
-        $this->_choices = $choices;
-        $this->_default = $default;
-        $this->_separator = $separator;
+        $this->name = $name;
+        $this->help = $help;
+        $this->required = $required;
+        $this->choices = $choices;
+        $this->default = $default;
+        $this->separator = $separator;
 
-        if ($this->_separator !== null && str_contains($this->_separator, ' ')) {
+        if ($this->separator !== null && str_contains($this->separator, ' ')) {
             throw new ConsoleException(
                 sprintf(
                     'The argument separator must not contain spaces for `%s`.',
-                    $this->_name,
+                    $this->name,
                 ),
             );
         }
@@ -112,7 +112,7 @@ class ConsoleInputArgument
      */
     public function name(): string
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -135,7 +135,7 @@ class ConsoleInputArgument
      */
     public function help(int $width = 0): string
     {
-        $name = $this->_name;
+        $name = $this->name;
         if (strlen($name) < $width) {
             $name = str_pad($name, $width, ' ');
         }
@@ -143,17 +143,17 @@ class ConsoleInputArgument
         if (!$this->isRequired()) {
             $optional = ' <comment>(optional)</comment>';
         }
-        if ($this->_choices) {
-            $optional .= sprintf(' <comment>(choices: %s)</comment>', implode('|', $this->_choices));
+        if ($this->choices) {
+            $optional .= sprintf(' <comment>(choices: %s)</comment>', implode('|', $this->choices));
         }
-        if ($this->_default !== null) {
-            $optional .= sprintf(' <comment>default: "%s"</comment>', $this->_default);
+        if ($this->default !== null) {
+            $optional .= sprintf(' <comment>default: "%s"</comment>', $this->default);
         }
-        if ($this->_separator) {
-            $optional .= sprintf(' <comment>(separator: "%s")</comment>', $this->_separator);
+        if ($this->separator) {
+            $optional .= sprintf(' <comment>(separator: "%s")</comment>', $this->separator);
         }
 
-        return sprintf('%s%s%s', $name, $this->_help, $optional);
+        return sprintf('%s%s%s', $name, $this->help, $optional);
     }
 
     /**
@@ -163,9 +163,9 @@ class ConsoleInputArgument
      */
     public function usage(): string
     {
-        $name = $this->_name;
-        if ($this->_choices) {
-            $name = implode('|', $this->_choices);
+        $name = $this->name;
+        if ($this->choices) {
+            $name = implode('|', $this->choices);
         }
         $name = '<' . $name . '>';
         if (!$this->isRequired()) {
@@ -182,7 +182,7 @@ class ConsoleInputArgument
      */
     public function defaultValue(): ?string
     {
-        return $this->_default;
+        return $this->default;
     }
 
     /**
@@ -192,7 +192,7 @@ class ConsoleInputArgument
      */
     public function isRequired(): bool
     {
-        return $this->_required;
+        return $this->required;
     }
 
     /**
@@ -202,7 +202,7 @@ class ConsoleInputArgument
      */
     public function separator(): ?string
     {
-        return $this->_separator;
+        return $this->separator;
     }
 
     /**
@@ -214,23 +214,23 @@ class ConsoleInputArgument
      */
     public function validChoice(string $value): bool
     {
-        if ($this->_choices === []) {
+        if ($this->choices === []) {
             return true;
         }
-        if ($value && $this->_separator) {
-            $values = explode($this->_separator, $value);
+        if ($value && $this->separator) {
+            $values = explode($this->separator, $value);
         } else {
             $values = [$value];
         }
 
-        $unwanted = array_filter($values, fn(string $value) => !in_array($value, $this->_choices, true));
+        $unwanted = array_filter($values, fn(string $value) => !in_array($value, $this->choices, true));
         if ($unwanted) {
             throw new ConsoleException(
                 sprintf(
                     '`%s` is not a valid value for `%s`. Please use one of `%s`',
                     $value,
-                    $this->_name,
-                    implode('|', $this->_choices),
+                    $this->name,
+                    implode('|', $this->choices),
                 ),
             );
         }
@@ -247,18 +247,18 @@ class ConsoleInputArgument
     public function xml(SimpleXMLElement $parent): SimpleXMLElement
     {
         $option = $parent->addChild('argument');
-        $option->addAttribute('name', $this->_name);
-        $option->addAttribute('help', $this->_help);
+        $option->addAttribute('name', $this->name);
+        $option->addAttribute('help', $this->help);
         $option->addAttribute('required', (string)(int)$this->isRequired());
         if ($this->separator() !== null) {
             $option->addAttribute('separator', $this->separator());
         }
         $choices = $option->addChild('choices');
-        foreach ($this->_choices as $valid) {
+        foreach ($this->choices as $valid) {
             $choices->addChild('choice', $valid);
         }
-        if ($this->_default !== null) {
-            $option->addAttribute('default', $this->_default);
+        if ($this->default !== null) {
+            $option->addAttribute('default', $this->default);
         }
 
         return $parent;

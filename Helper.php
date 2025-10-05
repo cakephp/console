@@ -41,7 +41,7 @@ abstract class Helper
      *
      * @var \Cake\Console\ConsoleIoInterface
      */
-    protected ConsoleIoInterface $_io;
+    protected ConsoleIoInterface $io;
 
     /**
      * Constructor.
@@ -51,7 +51,7 @@ abstract class Helper
      */
     public function __construct(ConsoleIoInterface $io, array $config = [])
     {
-        $this->_io = $io;
+        $this->io = $io;
         $this->setConfig($config);
     }
 

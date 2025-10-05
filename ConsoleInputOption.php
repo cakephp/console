@@ -32,49 +32,49 @@ class ConsoleInputOption
      *
      * @var string
      */
-    protected string $_name;
+    protected string $name;
 
     /**
      * Short (1 character) alias for the option.
      *
      * @var string
      */
-    protected string $_short;
+    protected string $short;
 
     /**
      * Help text for the option.
      *
      * @var string
      */
-    protected string $_help;
+    protected string $help;
 
     /**
      * Is the option a boolean option. Boolean options do not consume a parameter.
      *
      * @var bool
      */
-    protected bool $_boolean;
+    protected bool $boolean;
 
     /**
      * Default value for the option
      *
      * @var string|bool|null
      */
-    protected string|bool|null $_default = null;
+    protected string|bool|null $default = null;
 
     /**
      * Can the option accept multiple value definition.
      *
      * @var bool
      */
-    protected bool $_multiple;
+    protected bool $multiple;
 
     /**
      * An array of choices for the option.
      *
      * @var array<string>
      */
-    protected array $_choices;
+    protected array $choices;
 
     /**
      * The prompt string
@@ -95,7 +95,7 @@ class ConsoleInputOption
      *
      * @var string|null
      */
-    protected ?string $_separator = null;
+    protected ?string $separator = null;
 
     /**
      * Make a new Input Option
@@ -123,39 +123,39 @@ class ConsoleInputOption
         ?string $prompt = null,
         ?string $separator = null,
     ) {
-        $this->_name = $name;
-        $this->_short = $short;
-        $this->_help = $help;
-        $this->_boolean = $isBoolean;
-        $this->_choices = $choices;
-        $this->_multiple = $multiple;
+        $this->name = $name;
+        $this->short = $short;
+        $this->help = $help;
+        $this->boolean = $isBoolean;
+        $this->choices = $choices;
+        $this->multiple = $multiple;
         $this->required = $required;
         $this->prompt = $prompt;
-        $this->_separator = $separator;
+        $this->separator = $separator;
 
         if ($isBoolean) {
-            $this->_default = (bool)$default;
+            $this->default = (bool)$default;
         } elseif ($default !== null) {
-            $this->_default = (string)$default;
+            $this->default = (string)$default;
         }
 
-        if (strlen($this->_short) > 1) {
+        if (strlen($this->short) > 1) {
             throw new ConsoleException(
-                sprintf('Short option `%s` is invalid, short options must be one letter.', $this->_short),
+                sprintf('Short option `%s` is invalid, short options must be one letter.', $this->short),
             );
         }
-        if ($this->_default !== null && $this->prompt) {
+        if ($this->default !== null && $this->prompt) {
             throw new ConsoleException(
                 'You cannot set both `prompt` and `default` options. ' .
                 'Use either a static `default` or interactive `prompt`',
             );
         }
 
-        if ($this->_separator !== null && str_contains($this->_separator, ' ')) {
+        if ($this->separator !== null && str_contains($this->separator, ' ')) {
             throw new ConsoleException(
                 sprintf(
                     'The option separator must not contain spaces for `%s`.',
-                    $this->_name,
+                    $this->name,
                 ),
             );
         }
@@ -168,7 +168,7 @@ class ConsoleInputOption
      */
     public function name(): string
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -178,7 +178,7 @@ class ConsoleInputOption
      */
     public function short(): string
     {
-        return $this->_short;
+        return $this->short;
     }
 
     /**
@@ -191,20 +191,20 @@ class ConsoleInputOption
     {
         $default = '';
         $short = '';
-        if ($this->_default && $this->_default !== true) {
-            $default = sprintf(' <comment>(default: %s)</comment>', $this->_default);
+        if ($this->default && $this->default !== true) {
+            $default = sprintf(' <comment>(default: %s)</comment>', $this->default);
         }
-        if ($this->_choices) {
-            $default .= sprintf(' <comment>(choices: %s)</comment>', implode('|', $this->_choices));
+        if ($this->choices) {
+            $default .= sprintf(' <comment>(choices: %s)</comment>', implode('|', $this->choices));
         }
-        if ($this->_multiple && $this->_separator) {
-            $default .= sprintf(' <comment>(separator: `%s`)</comment>', $this->_separator);
+        if ($this->multiple && $this->separator) {
+            $default .= sprintf(' <comment>(separator: `%s`)</comment>', $this->separator);
         }
 
-        if ($this->_short !== '') {
-            $short = ', -' . $this->_short;
+        if ($this->short !== '') {
+            $short = ', -' . $this->short;
         }
-        $name = sprintf('--%s%s', $this->_name, $short);
+        $name = sprintf('--%s%s', $this->name, $short);
         if (strlen($name) < $width) {
             $name = str_pad($name, $width, ' ');
         }
@@ -213,7 +213,7 @@ class ConsoleInputOption
             $required = ' <comment>(required)</comment>';
         }
 
-        return sprintf('%s%s%s%s', $name, $this->_help, $default, $required);
+        return sprintf('%s%s%s%s', $name, $this->help, $default, $required);
     }
 
     /**
@@ -223,13 +223,13 @@ class ConsoleInputOption
      */
     public function usage(): string
     {
-        $name = $this->_short === '' ? '--' . $this->_name : '-' . $this->_short;
+        $name = $this->short === '' ? '--' . $this->name : '-' . $this->short;
         $default = '';
-        if ($this->_default !== null && !is_bool($this->_default) && $this->_default !== '') {
-            $default = ' ' . $this->_default;
+        if ($this->default !== null && !is_bool($this->default) && $this->default !== '') {
+            $default = ' ' . $this->default;
         }
-        if ($this->_choices) {
-            $default = ' ' . implode('|', $this->_choices);
+        if ($this->choices) {
+            $default = ' ' . implode('|', $this->choices);
         }
         $template = '[%s%s]';
         if ($this->isRequired()) {
@@ -246,7 +246,7 @@ class ConsoleInputOption
      */
     public function defaultValue(): string|bool|null
     {
-        return $this->_default;
+        return $this->default;
     }
 
     /**
@@ -266,7 +266,7 @@ class ConsoleInputOption
      */
     public function isBoolean(): bool
     {
-        return $this->_boolean;
+        return $this->boolean;
     }
 
     /**
@@ -276,7 +276,7 @@ class ConsoleInputOption
      */
     public function acceptsMultiple(): bool
     {
-        return $this->_multiple;
+        return $this->multiple;
     }
 
     /**
@@ -288,26 +288,26 @@ class ConsoleInputOption
      */
     public function validChoice(string|bool $value): bool
     {
-        if ($this->_choices === []) {
+        if ($this->choices === []) {
             return true;
         }
-        if (is_string($value) && $this->_separator) {
-            $values = explode($this->_separator, $value);
+        if (is_string($value) && $this->separator) {
+            $values = explode($this->separator, $value);
         } else {
             $values = [$value];
         }
-        if ($this->_boolean) {
+        if ($this->boolean) {
             $values = array_map('boolval', $values);
         }
 
-        $unwanted = array_filter($values, fn(bool|string $value) => !in_array($value, $this->_choices, true));
+        $unwanted = array_filter($values, fn(bool|string $value) => !in_array($value, $this->choices, true));
         if ($unwanted) {
             throw new ConsoleException(
                 sprintf(
                     '`%s` is not a valid value for `--%s`. Please use one of `%s`',
                     $value,
-                    $this->_name,
-                    implode('|', $this->_choices),
+                    $this->name,
+                    implode('|', $this->choices),
                 ),
             );
         }
@@ -322,7 +322,7 @@ class ConsoleInputOption
      */
     public function choices(): array
     {
-        return $this->_choices;
+        return $this->choices;
     }
 
     /**
@@ -344,24 +344,24 @@ class ConsoleInputOption
     public function xml(SimpleXMLElement $parent): SimpleXMLElement
     {
         $option = $parent->addChild('option');
-        $option->addAttribute('name', '--' . $this->_name);
+        $option->addAttribute('name', '--' . $this->name);
         $short = '';
-        if ($this->_short !== '') {
-            $short = '-' . $this->_short;
+        if ($this->short !== '') {
+            $short = '-' . $this->short;
         }
-        $default = $this->_default;
+        $default = $this->default;
         if ($default === true) {
             $default = 'true';
         } elseif ($default === false) {
             $default = 'false';
         }
         $option->addAttribute('short', $short);
-        $option->addAttribute('help', $this->_help);
-        $option->addAttribute('boolean', (string)(int)$this->_boolean);
+        $option->addAttribute('help', $this->help);
+        $option->addAttribute('boolean', (string)(int)$this->boolean);
         $option->addAttribute('required', (string)(int)$this->required);
         $option->addChild('default', (string)$default);
         $choices = $option->addChild('choices');
-        foreach ($this->_choices as $valid) {
+        foreach ($this->choices as $valid) {
             $choices->addChild('choice', $valid);
         }
 
@@ -375,6 +375,6 @@ class ConsoleInputOption
      */
     public function separator(): ?string
     {
-        return $this->_separator;
+        return $this->separator;
     }
 }

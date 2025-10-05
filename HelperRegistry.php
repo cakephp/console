@@ -33,7 +33,7 @@ class HelperRegistry extends ObjectRegistry
      *
      * @var \Cake\Console\ConsoleIoInterface
      */
-    protected ConsoleIoInterface $_io;
+    protected ConsoleIoInterface $io;
 
     /**
      * Sets The IO instance that should be passed to the shell helpers
@@ -43,7 +43,7 @@ class HelperRegistry extends ObjectRegistry
      */
     public function setIo(ConsoleIoInterface $io): void
     {
-        $this->_io = $io;
+        $this->io = $io;
     }
 
     /**
@@ -95,6 +95,6 @@ class HelperRegistry extends ObjectRegistry
             return $class;
         }
 
-        return new $class($this->_io, $config);
+        return new $class($this->io, $config);
     }
 }

@@ -38,7 +38,7 @@ class StubConsoleOutput extends ConsoleOutput
      *
      * @var array<string>
      */
-    protected array $_out = [];
+    protected array $out = [];
 
     /**
      * Constructor
@@ -47,7 +47,7 @@ class StubConsoleOutput extends ConsoleOutput
     {
         // Don't call parent on purpose as it opens php://stdin which doesn't
         // always exist in RunInSeparateProcess tests.
-        $this->_outputAs = self::PLAIN;
+        $this->outputAs = self::PLAIN;
     }
 
     /**
@@ -60,12 +60,12 @@ class StubConsoleOutput extends ConsoleOutput
     public function write(array|string $message, int $newlines = 1): int
     {
         foreach ((array)$message as $line) {
-            $this->_out[] = $line;
+            $this->out[] = $line;
         }
 
         $newlines--;
         while ($newlines > 0) {
-            $this->_out[] = '';
+            $this->out[] = '';
             $newlines--;
         }
 
@@ -79,7 +79,7 @@ class StubConsoleOutput extends ConsoleOutput
      */
     public function messages(): array
     {
-        return $this->_out;
+        return $this->out;
     }
 
     /**
@@ -89,7 +89,7 @@ class StubConsoleOutput extends ConsoleOutput
      */
     public function clear(): void
     {
-        $this->_out = [];
+        $this->out = [];
     }
 
     /**
@@ -99,6 +99,6 @@ class StubConsoleOutput extends ConsoleOutput
      */
     public function output(): string
     {
-        return implode("\n", $this->_out);
+        return implode("\n", $this->out);
     }
 }

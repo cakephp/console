@@ -36,35 +36,35 @@ class ConsoleIo implements ConsoleIoInterface
      *
      * @var \Cake\Console\ConsoleOutput
      */
-    protected ConsoleOutput $_out;
+    protected ConsoleOutput $out;
 
     /**
      * The error stream
      *
      * @var \Cake\Console\ConsoleOutput
      */
-    protected ConsoleOutput $_err;
+    protected ConsoleOutput $err;
 
     /**
      * The input stream
      *
      * @var \Cake\Console\ConsoleInput
      */
-    protected ConsoleInput $_in;
+    protected ConsoleInput $in;
 
     /**
      * The helper registry.
      *
      * @var \Cake\Console\HelperRegistry
      */
-    protected HelperRegistry $_helpers;
+    protected HelperRegistry $helpers;
 
     /**
      * The current output level.
      *
      * @var int
      */
-    protected int $_level = self::NORMAL;
+    protected int $level = self::NORMAL;
 
     /**
      * The number of bytes last written to the output stream
@@ -72,7 +72,7 @@ class ConsoleIo implements ConsoleIoInterface
      *
      * @var int
      */
-    protected int $_lastWritten = 0;
+    protected int $lastWritten = 0;
 
     /**
      * Whether files should be overwritten
@@ -100,11 +100,11 @@ class ConsoleIo implements ConsoleIoInterface
         ?ConsoleInput $in = null,
         ?HelperRegistry $helpers = null,
     ) {
-        $this->_out = $out ?: new ConsoleOutput('php://stdout');
-        $this->_err = $err ?: new ConsoleOutput('php://stderr');
-        $this->_in = $in ?: new ConsoleInput('php://stdin');
-        $this->_helpers = $helpers ?: new HelperRegistry();
-        $this->_helpers->setIo($this);
+        $this->out = $out ?: new ConsoleOutput('php://stdout');
+        $this->err = $err ?: new ConsoleOutput('php://stderr');
+        $this->in = $in ?: new ConsoleInput('php://stdin');
+        $this->helpers = $helpers ?: new HelperRegistry();
+        $this->helpers->setIo($this);
     }
 
     /**
@@ -125,10 +125,10 @@ class ConsoleIo implements ConsoleIoInterface
     public function level(?int $level = null): int
     {
         if ($level !== null) {
-            $this->_level = $level;
+            $this->level = $level;
         }
 
-        return $this->_level;
+        return $this->level;
     }
 
     /**
@@ -176,13 +176,13 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function out(array|string $message = '', int $newlines = 1, int $level = self::NORMAL): ?int
     {
-        if ($level > $this->_level) {
+        if ($level > $this->level) {
             return null;
         }
 
-        $this->_lastWritten = $this->_out->write($message, $newlines);
+        $this->lastWritten = $this->out->write($message, $newlines);
 
-        return $this->_lastWritten;
+        return $this->lastWritten;
     }
 
     /**
@@ -322,7 +322,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function overwrite(array|string $message, int $newlines = 1, ?int $size = null): void
     {
-        $size = $size ?: $this->_lastWritten;
+        $size = $size ?: $this->lastWritten;
 
         // Output backspaces.
         $this->out(str_repeat("\x08", $size), 0);
@@ -342,7 +342,7 @@ class ConsoleIo implements ConsoleIoInterface
         // is shorter than the old content the next overwrite
         // will work.
         if ($fill > 0) {
-            $this->_lastWritten = $newBytes + $fill;
+            $this->lastWritten = $newBytes + $fill;
         }
     }
 
@@ -356,7 +356,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function err(array|string $message = '', int $newlines = 1): int
     {
-        return $this->_err->write($message, $newlines);
+        return $this->err->write($message, $newlines);
     }
 
     /**
@@ -405,7 +405,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function setOutputAs(int $mode): void
     {
-        $this->_out->setOutputAs($mode);
+        $this->out->setOutputAs($mode);
     }
 
     /**
@@ -416,7 +416,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function styles(): array
     {
-        return $this->_out->styles();
+        return $this->out->styles();
     }
 
     /**
@@ -428,7 +428,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function getStyle(string $style): array
     {
-        return $this->_out->getStyle($style);
+        return $this->out->getStyle($style);
     }
 
     /**
@@ -441,7 +441,7 @@ class ConsoleIo implements ConsoleIoInterface
      */
     public function setStyle(string $style, array $definition): void
     {
-        $this->_out->setStyle($style, $definition);
+        $this->out->setStyle($style, $definition);
     }
 
     /**
@@ -501,8 +501,8 @@ class ConsoleIo implements ConsoleIoInterface
         if ($default !== null) {
             $defaultText = "[{$default}] ";
         }
-        $this->_out->write('<question>' . $prompt . "</question>{$optionsText}\n{$defaultText}> ", 0);
-        $result = $this->_in->read();
+        $this->out->write('<question>' . $prompt . "</question>{$optionsText}\n{$defaultText}> ", 0);
+        $result = $this->in->read();
 
         $result = $result === null ? '' : trim($result);
         if ($default !== null && $result === '') {
@@ -552,13 +552,13 @@ class ConsoleIo implements ConsoleIoInterface
         if ($enable !== static::QUIET) {
             $stdout = new ConsoleLog([
                 'types' => $outLevels,
-                'stream' => $this->_out,
+                'stream' => $this->out,
             ]);
             Log::setConfig('stdout', ['engine' => $stdout]);
         }
         $stderr = new ConsoleLog([
             'types' => ['emergency', 'alert', 'critical', 'error', 'warning'],
-            'stream' => $this->_err,
+            'stream' => $this->err,
         ]);
         Log::setConfig('stderr', ['engine' => $stderr]);
     }
@@ -578,7 +578,7 @@ class ConsoleIo implements ConsoleIoInterface
         $name = ucfirst($name);
 
         /** @var \Cake\Console\Helper */
-        return $this->_helpers->load($name, $config);
+        return $this->helpers->load($name, $config);
     }
 
     /**

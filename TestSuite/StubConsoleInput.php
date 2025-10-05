@@ -50,7 +50,7 @@ class StubConsoleInput extends ConsoleInput
         // Don't call parent on purpose as it opens php://stdin which doesn't
         // always exist in RunInSeparateProcess tests.
         $this->replies = $replies;
-        $this->_canReadline = false;
+        $this->canReadline = false;
     }
 
     /**
