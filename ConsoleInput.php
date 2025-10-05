@@ -29,7 +29,7 @@ class ConsoleInput
      *
      * @var resource
      */
-    protected $_input;
+    protected $input;
 
     /**
      * Can this instance use readline?
@@ -40,7 +40,7 @@ class ConsoleInput
      *
      * @var bool
      */
-    protected bool $_canReadline;
+    protected bool $canReadline;
 
     /**
      * Constructor
@@ -49,13 +49,13 @@ class ConsoleInput
      */
     public function __construct(string $handle = 'php://stdin')
     {
-        $this->_canReadline = (extension_loaded('readline') && $handle === 'php://stdin');
+        $this->canReadline = (extension_loaded('readline') && $handle === 'php://stdin');
         $input = fopen($handle, 'rb');
         if ($input === false) {
             throw new CakeException(sprintf('Cannot open handle `%s`', $handle));
         }
 
-        $this->_input = $input;
+        $this->input = $input;
     }
 
     /**
@@ -65,10 +65,10 @@ class ConsoleInput
      */
     public function __destruct()
     {
-        if (isset($this->_input) && is_resource($this->_input)) {
-            fclose($this->_input);
+        if (isset($this->input) && is_resource($this->input)) {
+            fclose($this->input);
         }
-        unset($this->_input);
+        unset($this->input);
     }
 
     /**
@@ -78,14 +78,14 @@ class ConsoleInput
      */
     public function read(): ?string
     {
-        if ($this->_canReadline) {
+        if ($this->canReadline) {
             $line = readline('');
 
             if ($line !== false && $line !== '') {
                 readline_add_history($line);
             }
         } else {
-            $line = fgets($this->_input);
+            $line = fgets($this->input);
         }
 
         if ($line === false) {
@@ -103,7 +103,7 @@ class ConsoleInput
      */
     public function dataAvailable(int $timeout = 0): bool
     {
-        $readFds = [$this->_input];
+        $readFds = [$this->input];
         $writeFds = null;
         $errorFds = null;
 

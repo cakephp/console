@@ -35,28 +35,28 @@ class HelpFormatter
      *
      * @var int
      */
-    protected int $_maxArgs = 6;
+    protected int $maxArgs = 6;
 
     /**
      * The maximum number of options shown when generating usage.
      *
      * @var int
      */
-    protected int $_maxOptions = 6;
+    protected int $maxOptions = 6;
 
     /**
      * Option parser.
      *
      * @var \Cake\Console\ConsoleOptionParser
      */
-    protected ConsoleOptionParser $_parser;
+    protected ConsoleOptionParser $parser;
 
     /**
      * Alias to display in the output.
      *
      * @var string
      */
-    protected string $_alias = 'cake';
+    protected string $alias = 'cake';
 
     /**
      * Build the help formatter for an OptionParser
@@ -65,7 +65,7 @@ class HelpFormatter
      */
     public function __construct(ConsoleOptionParser $parser)
     {
-        $this->_parser = $parser;
+        $this->parser = $parser;
     }
 
     /**
@@ -76,7 +76,7 @@ class HelpFormatter
      */
     public function setAlias(string $alias): void
     {
-        $this->_alias = $alias;
+        $this->alias = $alias;
     }
 
     /**
@@ -87,7 +87,7 @@ class HelpFormatter
      */
     public function text(int $width = 72): string
     {
-        $parser = $this->_parser;
+        $parser = $this->parser;
         $out = [];
         $description = $parser->getDescription();
         if ($description) {
@@ -145,20 +145,20 @@ class HelpFormatter
      */
     protected function generateUsage(): string
     {
-        $usage = [$this->_alias . ' ' . $this->_parser->getCommand()];
+        $usage = [$this->alias . ' ' . $this->parser->getCommand()];
         $options = [];
-        foreach ($this->_parser->options() as $option) {
+        foreach ($this->parser->options() as $option) {
             $options[] = $option->usage();
         }
-        if (count($options) > $this->_maxOptions) {
+        if (count($options) > $this->maxOptions) {
             $options = ['[options]'];
         }
         $usage = array_merge($usage, $options);
         $args = [];
-        foreach ($this->_parser->arguments() as $argument) {
+        foreach ($this->parser->arguments() as $argument) {
             $args[] = $argument->usage();
         }
-        if (count($args) > $this->_maxArgs) {
+        if (count($args) > $this->maxArgs) {
             $args = ['[arguments]'];
         }
         $usage = array_merge($usage, $args);
@@ -190,7 +190,7 @@ class HelpFormatter
      */
     public function xml(bool $string = true): SimpleXMLElement|string
     {
-        $parser = $this->_parser;
+        $parser = $this->parser;
         $xml = new SimpleXMLElement('<shell></shell>');
         $xml->addChild('command', $parser->getCommand());
         $xml->addChild('description', $parser->getDescription());

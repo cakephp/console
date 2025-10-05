@@ -87,7 +87,7 @@ class ConsoleOutput
      *
      * @var resource
      */
-    protected $_output;
+    protected $output;
 
     /**
      * The current output type.
@@ -95,14 +95,14 @@ class ConsoleOutput
      * @see setOutputAs() For manipulation.
      * @var int
      */
-    protected int $_outputAs = self::COLOR;
+    protected int $outputAs = self::COLOR;
 
     /**
      * text colors used in colored output.
      *
      * @var array<string, int>
      */
-    protected static array $_foregroundColors = [
+    protected static array $foregroundColors = [
         'black' => 30,
         'red' => 31,
         'green' => 32,
@@ -118,7 +118,7 @@ class ConsoleOutput
      *
      * @var array<string, int>
      */
-    protected static array $_backgroundColors = [
+    protected static array $backgroundColors = [
         'black' => 40,
         'red' => 41,
         'green' => 42,
@@ -134,7 +134,7 @@ class ConsoleOutput
      *
      * @var array<string, int>
      */
-    protected static array $_options = [
+    protected static array $options = [
         'bold' => 1,
         'underline' => 4,
         'blink' => 5,
@@ -147,7 +147,7 @@ class ConsoleOutput
      *
      * @var array<string, array>
      */
-    protected static array $_styles = [
+    protected static array $styles = [
         'emergency' => ['text' => 'red'],
         'alert' => ['text' => 'red'],
         'critical' => ['text' => 'red'],
@@ -185,7 +185,7 @@ class ConsoleOutput
             throw new ConsoleException('Invalid stream in constructor. It is not a valid resource.');
         }
 
-        $this->_output = $stream;
+        $this->output = $stream;
 
         if (
             (
@@ -197,13 +197,13 @@ class ConsoleOutput
             ) ||
             (
                 function_exists('posix_isatty') &&
-                !posix_isatty($this->_output)
+                !posix_isatty($this->output)
             ) ||
             (
                 env('NO_COLOR') !== null
             )
         ) {
-            $this->_outputAs = self::PLAIN;
+            $this->outputAs = self::PLAIN;
         }
     }
 
@@ -232,10 +232,10 @@ class ConsoleOutput
      */
     public function styleText(string $text): string
     {
-        if ($this->_outputAs === static::RAW) {
+        if ($this->outputAs === static::RAW) {
             return $text;
         }
-        if ($this->_outputAs !== static::PLAIN) {
+        if ($this->outputAs !== static::PLAIN) {
             /** @var \Closure $replaceTags */
             $replaceTags = $this->replaceTags(...);
 
@@ -249,7 +249,7 @@ class ConsoleOutput
             }
         }
 
-        $tags = implode('|', array_keys(static::$_styles));
+        $tags = implode('|', array_keys(static::$styles));
         $output = preg_replace('#</?(?:' . $tags . ')>#', '', $text);
 
         return $output ?? $text;
@@ -269,16 +269,16 @@ class ConsoleOutput
         }
 
         $styleInfo = [];
-        if (!empty($style['text']) && isset(static::$_foregroundColors[$style['text']])) {
-            $styleInfo[] = static::$_foregroundColors[$style['text']];
+        if (!empty($style['text']) && isset(static::$foregroundColors[$style['text']])) {
+            $styleInfo[] = static::$foregroundColors[$style['text']];
         }
-        if (!empty($style['background']) && isset(static::$_backgroundColors[$style['background']])) {
-            $styleInfo[] = static::$_backgroundColors[$style['background']];
+        if (!empty($style['background']) && isset(static::$backgroundColors[$style['background']])) {
+            $styleInfo[] = static::$backgroundColors[$style['background']];
         }
         unset($style['text'], $style['background']);
         foreach ($style as $option => $value) {
             if ($value) {
-                $styleInfo[] = static::$_options[$option];
+                $styleInfo[] = static::$options[$option];
             }
         }
 
@@ -293,11 +293,11 @@ class ConsoleOutput
      */
     protected function writeStream(string $message): int
     {
-        if (!isset($this->_output)) {
+        if (!isset($this->output)) {
             return 0;
         }
 
-        return (int)fwrite($this->_output, $message);
+        return (int)fwrite($this->output, $message);
     }
 
     /**
@@ -308,7 +308,7 @@ class ConsoleOutput
      */
     public function getStyle(string $style): array
     {
-        return static::$_styles[$style] ?? [];
+        return static::$styles[$style] ?? [];
     }
 
     /**
@@ -333,12 +333,12 @@ class ConsoleOutput
     public function setStyle(string $style, array $definition): void
     {
         if (!$definition) {
-            unset(static::$_styles[$style]);
+            unset(static::$styles[$style]);
 
             return;
         }
 
-        static::$_styles[$style] = $definition;
+        static::$styles[$style] = $definition;
     }
 
     /**
@@ -348,7 +348,7 @@ class ConsoleOutput
      */
     public function styles(): array
     {
-        return static::$_styles;
+        return static::$styles;
     }
 
     /**
@@ -358,7 +358,7 @@ class ConsoleOutput
      */
     public function getOutputAs(): int
     {
-        return $this->_outputAs;
+        return $this->outputAs;
     }
 
     /**
@@ -374,7 +374,7 @@ class ConsoleOutput
             throw new InvalidArgumentException(sprintf('Invalid output type `%s`.', $type));
         }
 
-        $this->_outputAs = $type;
+        $this->outputAs = $type;
     }
 
     /**
@@ -382,9 +382,9 @@ class ConsoleOutput
      */
     public function __destruct()
     {
-        if (isset($this->_output) && is_resource($this->_output)) {
-            fclose($this->_output);
+        if (isset($this->output) && is_resource($this->output)) {
+            fclose($this->output);
         }
-        unset($this->_output);
+        unset($this->output);
     }
 }
