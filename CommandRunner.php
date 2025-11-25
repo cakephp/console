@@ -136,12 +136,12 @@ class CommandRunner implements EventDispatcherInterface
 
         $this->bootstrap();
 
-        $eventManager = $this->getEventManager();
         if ($this->app instanceof EventAwareApplicationInterface) {
+            $eventManager = $this->getEventManager();
             $eventManager = $this->app->events($eventManager);
             $eventManager = $this->app->pluginEvents($eventManager);
+            $this->setEventManager($eventManager);
         }
-        $this->setEventManager($eventManager);
 
         $commands = new CommandCollection([
             'help' => HelpCommand::class,
