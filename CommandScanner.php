@@ -19,7 +19,7 @@ namespace Cake\Console;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Filesystem\Finder;
+use Cake\Utility\Fs\Finder;
 use Cake\Utility\Inflector;
 use ReflectionClass;
 
