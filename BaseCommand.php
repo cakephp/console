@@ -62,6 +62,10 @@ abstract class BaseCommand implements CommandInterface, EventDispatcherInterface
      */
     protected string $name = 'cake unknown';
 
+    protected Arguments $args;
+
+    protected ConsoleIo $io;
+
     protected ?CommandFactoryInterface $factory = null;
 
     /**
@@ -243,6 +247,9 @@ abstract class BaseCommand implements CommandInterface, EventDispatcherInterface
 
             return static::CODE_ERROR;
         }
+        $this->args = $args;
+        $this->io = $io;
+
         $this->setOutputLevel($args, $io);
 
         if ($args->getOption('help')) {
