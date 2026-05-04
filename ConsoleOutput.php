@@ -292,8 +292,7 @@ class ConsoleOutput
      */
     protected function _write(string $message): int
     {
-        // @phpstan-ignore isset.property (property may not be set if constructor throws)
-        if (!isset($this->_output)) {
+        if (!is_resource($this->_output)) {
             return 0;
         }
 
