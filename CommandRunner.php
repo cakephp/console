@@ -170,7 +170,7 @@ class CommandRunner implements EventDispatcherInterface
         // Check if this is a command prefix (e.g., "cache" has subcommands like "cache clear")
         // Show help for that prefix instead of running the base command
         if ($name !== null && !$commands->has($name) && $this->hasCommandsWithPrefix($commands, $name)) {
-            $argv = array_merge([$name], $argv);
+            $argv = [$name];
             $name = 'help';
         }
 
